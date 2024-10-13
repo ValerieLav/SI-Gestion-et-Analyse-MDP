@@ -1,3 +1,6 @@
+rockyou.txt
+rockyou_spec.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -162,5 +165,3 @@ cython_debug/
 #.idea/
 
 
-rockyou.txt
-rockyou_spec.csv
