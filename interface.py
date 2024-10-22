@@ -1,5 +1,3 @@
-# SI-Gestion-et-Analyse-MDP
-
 import tkinter as tk
 from tkinter import messagebox
 from cryptography.fernet import Fernet
