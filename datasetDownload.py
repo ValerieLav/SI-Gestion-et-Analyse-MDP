@@ -8,7 +8,6 @@ import os
 # Attention au chemin de rockyou.txt
 pathfile = r'rockyou.txt'
 
-
 # Garder 10000 lignes aleratoire
 n = sum(1 for line in open(pathfile, encoding='latin-1'))  #Nombre de ligne dans le fichier
 s = 10000                                                  #Nombre de lignes désirees
@@ -17,18 +16,9 @@ skip = sorted(rd.sample(range(n), n-s))
 df = pd.read_csv(pathfile,
                  on_bad_lines='skip',
                  encoding="latin-1",
-                 skiprows= skip)
-
-
-# Test Shuffle avant de couper par 10000
-#df = pd.read_csv(pathfile,
-#                 on_bad_lines='skip',
-#                 encoding="latin-1")
-#df = df.sample(frac=1).reset_index(drop=True)
-#df = pd.DataFrame(df, skiprows= skip)
-
-# Définir le nom de colonne
-df.columns = ["password"]
+                 skiprows= skip,
+                 header=None,
+                 names=["password"])                       # Définir le nom de colonne
 
 # Suppresion des doublons
 df_clean = df.drop_duplicates()
@@ -84,13 +74,11 @@ def count_special_char(pwd) :
                        count_uppercase(pwd) )
 
 # Calcule de la Force d'un mot de passe         # A redefinir ?
-def def_strength(len, upper, lower, digit, spe):
+def def_strength(pwd, len, upper, lower, digit, spe):
     s = 0
     if len >= 14 :
-        s += 3
-    elif len >= 10 :
         s += 2
-    else :
+    elif len >= 8 :
         s += 1
     if digit >= 1 :
         s += 1
@@ -98,7 +86,21 @@ def def_strength(len, upper, lower, digit, spe):
         s += 1
     if upper >= 1 :
         s += 1
+    if RepetitiveCharacteres(pwd) :
+        s -= 1
     return s
+
+def RepetitiveCharacteres(pwd) : 
+    repeatCount = 0
+    lastCharac = None
+    for i in range (1, len(pwd)) :
+        lastCharac = pwd[i-1]
+        if (pwd[i] == lastCharac) :
+            repeatCount += 1
+        else :
+            repeatCount = 0
+        if repeatCount == 2 : return True
+    return False
 
 # Fonction extraction des carcateristics
 def extract_features(password) : 
@@ -107,7 +109,7 @@ def extract_features(password) :
     lower = count_lowercase(password)
     digit = count_digit(password)
     spe = count_special_char(password)
-    strength = def_strength(length, upper, lower, digit, spe)
+    strength = def_strength(password, length, upper, lower, digit, spe)
     return [password, length, upper, lower, digit, spe, strength]
 
 # Creation du DataFrame avec caracteristics
