@@ -87,7 +87,7 @@ def def_strength(pwd, len, upper, lower, digit, spe):
     if upper >= 1 :
         s += 1
     if RepetitiveCharacteres(pwd) :
-        s -= 1
+        if s != 0 : s -= 1
     return s
 
 def RepetitiveCharacteres(pwd) : 
