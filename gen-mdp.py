@@ -25,9 +25,6 @@ def contains_common_patterns(password):
     return False  # Retourne False si aucun motif commun n'est trouvé
 
 def generate_password(length):
-    if length < 4:
-        print("La longueur doit être d'au moins 4 caractères pour inclure tous les types de caractères.")
-        return None
 
     # Sélectionner un caractère de chaque ensemble pour garantir la diversité
     password = [
