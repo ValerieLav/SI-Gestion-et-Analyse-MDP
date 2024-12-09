@@ -3,7 +3,6 @@ import numpy as np
 import random as rd
 import os
 
-
 # Chargement du dataset
 # Attention au chemin de rockyou.txt
 pathfile = r'rockyou.txt'
