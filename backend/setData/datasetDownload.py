@@ -1,15 +1,27 @@
+#####################################################
+#                                                   #
+#              Importer les Librairies              #
+#                                                   #
+#####################################################
+
 import pandas as pd
 import numpy as np
 import random as rd
 import os
 
 # Appel la fonction extraction des carcateristics
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from extractFeatures import *
 
-# Chargement du dataset
-# Attention au chemin de rockyou.txt
-pathfile = r'rockyou.txt'
-pathfile_common = r'dataset/10k-most-common.txt'
+#####################################################
+#                                                   #
+#               Chargement du dataset               #
+#                                                   #
+#####################################################
+
+pathfile = r'../rockyou.txt'
 
 # Garder 10000 lignes aleratoire
 n = sum(1 for line in open(pathfile, encoding='latin-1'))  #Nombre de ligne dans le fichier
@@ -22,6 +34,12 @@ df = pd.read_csv(pathfile,
                  skiprows= skip,
                  header=None,                              # Ignore les noms de colonne du fichier
                  names=["password"])                       # Définir le nom de colonne avec password
+
+#####################################################
+#                                                   #
+#                Nettoyer le dataset                #
+#                                                   #
+#####################################################
 
 # Suppresion des doublons
 df_clean = df.drop_duplicates()
@@ -50,10 +68,25 @@ df_clean = df_clean.reset_index(drop=True)
 f = np.array([extract_features(pw) for pw in df_clean['password']])
 dff = pd.DataFrame(f, columns=['password', 'length', 'upper', 'lower', 'digit', 'spe', 'strength'])
 
-# Enregistrer dans un fichier df dans dataset
+#####################################################
+#                                                   #
+#              Enregistrer le dataset               #
+#                                                   #
+#####################################################
+
 x = rd.randint(1,100)
-filename = f'../dataset/df{x}.csv'
-while os.path.exists(filename):
+filename = f'df{x}.csv'
+
+# Obtenir le repertoire parent
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Constuire le chemin vers dataset
+some_folder_path = os.path.join(parent_dir, 'dataset')
+file_to_save = os.path.join(some_folder_path, filename)
+
+while os.path.exists(file_to_save):
     x = rd.randint(1,100)
-    filename = f'../dataset/df{x}.csv'
-dff.to_csv(filename)
+    filename = f'df{x}.csv'
+    file_to_save = os.path.join(some_folder_path, filename)
+
+dff.to_csv(file_to_save)
