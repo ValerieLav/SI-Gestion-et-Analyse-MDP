@@ -56,5 +56,11 @@ def def_strength(pwd, len, upper, lower, digit, spe):
         s += 1
     if RepetitiveCharacteres(pwd) :
         if s != 0 : s -= 1
-    return s
+        
+    if s >= 4 :
+        return 'fort'
+    elif s >= 2: 
+        return 'moyen'
+    else : 
+        return 'faible'
 
