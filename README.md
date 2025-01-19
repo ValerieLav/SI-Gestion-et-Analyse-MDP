@@ -1,5 +1,5 @@
 # SI-Gestion-et-Analyse-MDP
----
+
 ### Objectifs du projet
 
 1. Analyse la force des mots de passe fournis par les utilisateurs
@@ -7,29 +7,35 @@
 3. Stocker les mots de passe de maniere sécurisee a l'aide de chiffrement
 4. Simuler des attaques de brute-force et de dictionnaire pour tester la robustesse des mots de passe
 5. Appliquer des tecchnique de traitement de langage naturel pour eviter les mots de passe bases sur les expression ou mots courrants.
+
+### Password Dataset : [rockyou.txt](https://www.kaggle.com/datasets/wjburns/common-password-list-rockyoutxt?resource=download)
+
 ---
+## Caractéristiques
 
-Password Dataset : [rockyou.txt](https://www.kaggle.com/datasets/wjburns/common-password-list-rockyoutxt?resource=download)
+- Structure Basique
+- Ecrit en Python
 
-Faire attention au chemin utiliser pour le fichier rockyou.txt
+## Commancer
 
-```
-import pandas as pd
+### Prérequis
+- Python et ses librairies
 
-# Chargement du dataset
-df = pd . read_csv (’path/to/rockyou.txt ’)
+### Exécuter le Projet
+- `python3 init.py`
 
-# Suppression des doublons
-df_clean = df . drop_duplicates ()
+## Structure
 
-# Afficher le resultat
-print ( df_clean )
-```
----
+- `init.py` : Fenêtre Principale du Projet
+- `net.ipynb` : Machine Learning
+- setData File : Fichier pour intialiser la base de Donnée pour le Machine Learning
+- dataset : Les databases utilisable ou de test
+- `CountFunc.py` et `extractFeatures.py`: Fonction pour effectuer le Machine Learning
+- `gen_mdp.py` : Fonction de génération de mot de passe
 
-##### Update your branch
-Dans le terminal terminal
-
-```
-git checkout custom_branch && git rebase main
-```
+## Contributions
+- Leila Njoya
+- Darren Tchagwo
+- Valérie Lav
+- Kelly Vaniarison
+- Romain Voltigeur

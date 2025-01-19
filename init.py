@@ -30,7 +30,7 @@ from gen_mdp import *
 # # Example: Execute the notebook
 # run_notebook("net.ipynb")
 
-from net import *
+from net import test_input
 from crypto import *
 
 #####################################################
@@ -243,7 +243,7 @@ initialize_db()
 # Création de l'interface utilisateur
 # generate_key()  # Génère la clé de chiffrement si elle n'existe pas encore
 
-# Creation de la fenètre principal
+# Creation de la fenetre principal
 root = tk.Tk()
 root.title("Gestionnaire et Analyse de mots de passe")
 root.geometry("800x600")
