@@ -39,10 +39,10 @@ knn.fit(X_train_scaled, y_train)
 # Prediction et Evaluation du modele
 y_pred = knn.predict(X_test_scaled)
 accuracy = accuracy_score(y_test, y_pred)
-print(f'Accuracy: {accuracy}')
-print(classification_report(y_test, y_pred))
+# print(f'Accuracy: {accuracy}')
+# print(classification_report(y_test, y_pred))
 
-def test_input(ipt=input()):
+def test_input(ipt):
     user_inp = ipt
     user_inp_f = np.array(extract_features(user_inp)).reshape(1, -1)
     #print(user_inp_f)
@@ -55,4 +55,9 @@ def test_input(ipt=input()):
 
     strength = knn.predict(scaler.transform(inp_x))
 
-    return strength
+    if strength == 2 : 
+        return 'Fort'
+    elif strength == 1 : 
+        return 'Moyen'
+    else : 
+        return 'Faible'

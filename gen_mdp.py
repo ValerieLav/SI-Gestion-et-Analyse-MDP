@@ -45,7 +45,7 @@ def generate_password(length):
     return ''.join(password)
 
 # Générer un mot de passe entre 6 et 20 caractères
-length = random.randint(6,20)
-password = generate_password(length)
-if password:
-    print("Mot de passe généré :", password)
+# length = random.randint(6,20)
+# password = generate_password(length)
+# if password:
+#     print("Mot de passe généré :", password)

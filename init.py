@@ -1,13 +1,24 @@
-import tkinter as tk
-from tkinter import messagebox
-from cryptography.fernet import Fernet
+#####################################################
+#                                                   #
+#              Importer les Librairies              #
+#                                                   #
+#####################################################
+
 import os
 import random
-import nbformat
-from IPython.core.interactiveshell import InteractiveShell
+import sqlite3
+
+import tkinter as tk
+from tkinter import messagebox, simpledialog
+
+from cryptography.fernet import Fernet
+
 
 from gen_mdp import *
 
+# import nbformat
+# from IPython.core.interactiveshell import InteractiveShell
+#
 # def run_notebook(notebook_path):
 #     with open(notebook_path, "r", encoding="utf-8") as f:
 #         notebook = nbformat.read(f, as_version=4)
@@ -21,6 +32,84 @@ from gen_mdp import *
 # run_notebook("net.ipynb")
 
 from net import *
+
+#####################################################
+#                                                   #
+#                      Database                     #
+#                                                   #
+#####################################################
+
+# Initialize the database
+def initialize_db():
+    db_path = 'passwords.db'
+    if os.path.exists(db_path):
+        try:
+            conn = sqlite3.connect(db_path)
+            c = conn.cursor()
+            c.execute('SELECT name FROM sqlite_master WHERE type="table"')
+            conn.close()
+        except sqlite3.DatabaseError:
+            os.remove(db_path)
+            conn = sqlite3.connect(db_path)
+            c = conn.cursor()
+            c.execute('''
+                CREATE TABLE IF NOT EXISTS passwords (
+                    site TEXT NOT NULL,
+                    username TEXT NOT NULL,
+                    encrypted_password TEXT NOT NULL,
+                    PRIMARY KEY (site, username)
+                )
+            ''')
+            conn.commit()
+            conn.close()
+    else:
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        c.execute('''
+            CREATE TABLE IF NOT EXISTS passwords (
+                site TEXT NOT NULL,
+                username TEXT NOT NULL,
+                encrypted_password TEXT NOT NULL,
+                PRIMARY KEY (site, username)
+            )
+        ''')
+        conn.commit()
+        conn.close()
+        
+# Function to store a password
+def store_password(site, username, encrypted_password):
+    # Vérifier si encrypted_password est de type bytes
+    if isinstance(encrypted_password, bytes):
+        encrypted_password = encrypted_password.decode()
+
+    conn = sqlite3.connect('passwords.db')
+    c = conn.cursor()
+    c.execute('''
+        INSERT OR REPLACE INTO passwords (site, username, encrypted_password)
+        VALUES (?, ?, ?)
+    ''', (site, username, encrypted_password))
+    conn.commit()
+    conn.close()
+    
+# Function to retrieve a password
+def retrieve_password(site, username):
+    conn = sqlite3.connect('passwords.db')
+    c = conn.cursor()
+    c.execute('''
+        SELECT encrypted_password FROM passwords
+        WHERE site = ? AND username = ?
+    ''', (site, username))
+    result = c.fetchone()
+    conn.close()
+    if result:
+        return result[0]
+    return None
+
+#####################################################
+#                                                   #
+#                      Fonctions                    #
+#                                                   #
+#####################################################
 
 # Fonction pour générer une clé de chiffrement et la stocker dans un fichier (si elle n'existe pas déjà)
 def generate_key():
@@ -61,11 +150,21 @@ def show_generated_password():
     strength = test_input(password)
     strength_label.config(text=f"Force du mot de passe : {strength}")
 
+#####################################################
+#                                                   #
+#               Interface Utilisateur               #
+#                                                   #
+#####################################################
+
+# Initialize the database
+initialize_db()
+
 # Création de l'interface utilisateur
 generate_key()  # Génère la clé de chiffrement si elle n'existe pas encore
 
 root = tk.Tk()
 root.title("Gestionnaire de mots de passe")
+root.geometry("800x600")
 
 # Label et champ pour entrer le mot de passe
 label_password = tk.Label(root, text="Mot de passe :")
@@ -78,7 +177,7 @@ strength_label = tk.Label(root, text="")
 strength_label.pack(pady=10)
 
 # Bouton pour évaluer la force du mot de passe entré
-evaluate_button = tk.Button(root, text="Évaluer la Force", command=lambda: strength_label.config(text=f"Force du mot de passe : {evaluate_password_strength(password_entry.get())}"))
+evaluate_button = tk.Button(root, text="Évaluer la Force", command=lambda: strength_label.config(text=f"Force du mot de passe : {test_input(entry_password.get())}"))
 evaluate_button.pack(pady=5)
 
 # Bouton pour générer un mot de passe aléatoire
