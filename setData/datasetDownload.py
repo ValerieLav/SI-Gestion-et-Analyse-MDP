@@ -21,7 +21,7 @@ from extractFeatures import *
 #                                                   #
 #####################################################
 
-pathfile = r'../rockyou.txt'
+pathfile = r'rockyou.txt'
 
 # Garder 10000 lignes aleratoire
 n = sum(1 for line in open(pathfile, encoding='latin-1'))  #Nombre de ligne dans le fichier

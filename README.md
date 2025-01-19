@@ -10,6 +10,8 @@
 
 ### Password Dataset : [rockyou.txt](https://www.kaggle.com/datasets/wjburns/common-password-list-rockyoutxt?resource=download)
 
+### Lien GitHub : https://github.com/ValerieLav/SI-Gestion-et-Analyse-MDP.git
+
 ---
 ## Caractéristiques
 
@@ -33,6 +35,13 @@
 - `CountFunc.py` et `extractFeatures.py`: Fonction pour effectuer le Machine Learning
 - `gen_mdp.py` : Fonction de génération de mot de passe
 - `attaque.py` : Fonction simulation d'attaque
+
+## Ce qui est à prévoir ou améliorable
+
+- Formulaire :
+    - La base de donnée appartient et est gérer par l'utilisateur
+    - Evaluation des mots de passe en se passant sur d'autre caractéristique tel que : nom, prénom, date d'anniversaire, mail, nom du site, ...
+- Machine Learning : Améliorer en calculant les meilleurs hyperparamètres
 
 ## Contributions
 - Leila Njoya

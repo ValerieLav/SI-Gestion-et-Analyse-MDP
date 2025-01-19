@@ -42,13 +42,34 @@ accuracy = accuracy_score(y_test, y_pred)
 # print(f'Accuracy: {accuracy}')
 # print(classification_report(y_test, y_pred))
 
+# def test_input(ipt):
+#     user_inp = ipt
+#     user_inp_f = np.array(extract_features(user_inp)).reshape(1, -1)
+#     #print(user_inp_f)
+#     df_inp = pd.DataFrame(user_inp_f, columns=['password', 'length', 'upper', 'lower', 'digit', 'spe', 'strength'])
+#     inp_x = df_inp[['length', 'upper', 'lower', 'digit', 'spe']].values
+#     inp_y = df_inp['strength']
+#     inp_pred = scaler.transform(inp_x)
+
+#     #print(df_inp)
+
+#     strength = knn.predict(inp_pred)
+
+#     if strength == 2 : 
+#         return 'Fort'
+#     elif strength == 1 : 
+#         return 'Moyen'
+#     else : 
+#         return 'Faible'
+
 def test_input(ipt):
     user_inp = ipt
     user_inp_f = np.array(extract_features(user_inp)).reshape(1, -1)
     #print(user_inp_f)
     df_inp = pd.DataFrame(user_inp_f, columns=['password', 'length', 'upper', 'lower', 'digit', 'spe', 'strength'])
-    inp_x = df_inp[['length', 'upper', 'lower', 'digit', 'spe']].values
-    inp_y = df_inp['strength']
+    inp_x = df_inp[['length', 'upper', 'lower', 'digit', 'spe']]
+
+    # Ensure the input data has the same feature names
     inp_pred = scaler.transform(inp_x)
 
     #print(df_inp)
