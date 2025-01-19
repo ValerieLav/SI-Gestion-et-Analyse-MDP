@@ -3,8 +3,23 @@ from tkinter import messagebox
 from cryptography.fernet import Fernet
 import os
 import random
+import nbformat
+from IPython.core.interactiveshell import InteractiveShell
 
 from gen_mdp import *
+
+# def run_notebook(notebook_path):
+#     with open(notebook_path, "r", encoding="utf-8") as f:
+#         notebook = nbformat.read(f, as_version=4)
+
+#     shell = InteractiveShell.instance()
+#     for cell in notebook.cells:
+#         if cell.cell_type == "code":
+#             shell.run_cell(cell.source)
+
+# # Example: Execute the notebook
+# run_notebook("net.ipynb")
+
 from net import *
 
 # Fonction pour générer une clé de chiffrement et la stocker dans un fichier (si elle n'existe pas déjà)
@@ -57,6 +72,14 @@ label_password = tk.Label(root, text="Mot de passe :")
 label_password.pack(pady=5)
 entry_password = tk.Entry(root, show="*")
 entry_password.pack(pady=10)
+
+# Label pour afficher la force du mot de passe
+strength_label = tk.Label(root, text="")
+strength_label.pack(pady=10)
+
+# Bouton pour évaluer la force du mot de passe entré
+evaluate_button = tk.Button(root, text="Évaluer la Force", command=lambda: strength_label.config(text=f"Force du mot de passe : {evaluate_password_strength(password_entry.get())}"))
+evaluate_button.pack(pady=5)
 
 # Bouton pour générer un mot de passe aléatoire
 generate_button = tk.Button(root, text="Générer un Mot de Passe", command=show_generated_password)
