@@ -32,6 +32,7 @@
 - dataset : Les databases utilisable ou de test
 - `CountFunc.py` et `extractFeatures.py`: Fonction pour effectuer le Machine Learning
 - `gen_mdp.py` : Fonction de génération de mot de passe
+- `attaque.py` : Fonction simulation d'attaque
 
 ## Contributions
 - Leila Njoya

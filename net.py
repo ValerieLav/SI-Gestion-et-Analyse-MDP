@@ -53,7 +53,7 @@ def test_input(ipt):
 
     #print(df_inp)
 
-    strength = knn.predict(scaler.transform(inp_x))
+    strength = knn.predict(inp_pred)
 
     if strength == 2 : 
         return 'Fort'
