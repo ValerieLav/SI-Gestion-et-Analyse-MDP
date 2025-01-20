@@ -83,4 +83,4 @@ def test_input(ipt):
     # else : 
     #     return 'Faible'
     
-    return strength
+    return np.array_str(strength) 

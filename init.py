@@ -167,7 +167,7 @@ def save_password_ui():
     username = username_entry.get()
     password = password_entry.get()
     if site and username and password:
-        if not test_input(password) == "Fort":
+        if not test_input(password) == "['fort']":
             messagebox.showwarning("Error", "Le mot de passe n'est pas assez fort. Veuillez choisir un mot de passe plus fort.")
             return
         encrypted_password = encrypt_password(key, password)
