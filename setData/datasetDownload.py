@@ -14,6 +14,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from extractFeatures import *
+from gen_mdp import generate_password
 
 #####################################################
 #                                                   #
@@ -25,7 +26,7 @@ pathfile = r'rockyou.txt'
 
 # Garder 10000 lignes aleratoire
 n = sum(1 for line in open(pathfile, encoding='latin-1'))  #Nombre de ligne dans le fichier
-s = 10000                                                  #Nombre de lignes désirees
+s = 5000                                                  #Nombre de lignes désirees
 
 skip = sorted(rd.sample(range(n), n-s))
 df = pd.read_csv(pathfile,
@@ -34,6 +35,11 @@ df = pd.read_csv(pathfile,
                  skiprows= skip,
                  header=None,                              # Ignore les noms de colonne du fichier
                  names=["password"])                       # Définir le nom de colonne avec password
+
+# Equilibré le dataset avec une génération de mots de passe fort
+while (df.size <= 10000) :
+    pwd = generate_password(rd.randint(6,20))
+    df = df._append({"password": pwd}, ignore_index=True)
 
 #####################################################
 #                                                   #
@@ -89,4 +95,5 @@ while os.path.exists(file_to_save):
     filename = f'df{x}.csv'
     file_to_save = os.path.join(some_folder_path, filename)
 
+print(x)
 dff.to_csv(file_to_save)

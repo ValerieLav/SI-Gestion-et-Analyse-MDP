@@ -44,7 +44,7 @@ def RepetitiveCharacteres(pwd) :
 # Calcule de la Force d'un mot de passe         # A redefinir ?
 def def_strength(pwd, len, upper, lower, digit, spe):
     s = 0
-    if len >= 14 :
+    if len >= 12 :
         s += 2
     elif len >= 8 :
         s += 1

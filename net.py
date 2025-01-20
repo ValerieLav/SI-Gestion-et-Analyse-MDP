@@ -10,15 +10,15 @@ import matplotlib.pyplot as plt
 
 from extractFeatures import *
 
-file_path = r'dataset/df18.csv'
+file_path = r'dataset/df77.csv'
 
 df = pd.read_csv(file_path,
                   on_bad_lines='skip',
                   encoding="latin-1")
 
-# Convertir les labels en valeurs numériques
-label_mapping = {'faible': 0, 'moyen': 1, 'fort': 2}
-df['strength'] = df['strength'].map(label_mapping)
+# # Convertir les labels en valeurs numériques
+# label_mapping = {'faible': 0, 'moyen': 1, 'fort': 2}
+# df['strength'] = df['strength'].map(label_mapping)
 
 # Separer Caracteristique et Labels
 X = df[['length', 'upper', 'lower', 'digit', 'spe']]
@@ -76,9 +76,11 @@ def test_input(ipt):
 
     strength = knn.predict(inp_pred)
 
-    if strength == 2 : 
-        return 'Fort'
-    elif strength == 1 : 
-        return 'Moyen'
-    else : 
-        return 'Faible'
+    # if strength == 2 : 
+    #     return 'Fort'
+    # elif strength == 1 : 
+    #     return 'Moyen'
+    # else : 
+    #     return 'Faible'
+    
+    return strength
