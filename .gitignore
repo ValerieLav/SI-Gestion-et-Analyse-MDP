@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+rockyou.txt
+
 # C extensions
 *.so
 
