@@ -41,7 +41,6 @@
 - Formulaire :
     - La base de donnée appartient et est gérer par l'utilisateur
     - Evaluation des mots de passe en se passant sur d'autre caractéristique tel que : nom, prénom, date d'anniversaire, mail, nom du site, ...
-- Machine Learning : Améliorer en calculant les meilleurs hyperparamètres
 
 ## Contributions
 - Leila Njoya
